@@ -1,0 +1,52 @@
+{
+  "name": "n8n-nodes-mailpulse",
+  "version": "0.1.0",
+  "description": "n8n node to track email opens and clicks with Mailpulse",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "email",
+    "tracking",
+    "analytics",
+    "mailpulse"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Lyten Agency"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LytenAgency/mailpulse"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc && cp -r src/nodes/EmailTracker/*.svg dist/nodes/EmailTracker/ 2>/dev/null || true",
+    "dev": "tsc --watch",
+    "lint": "eslint . --ext .ts",
+    "prepublishOnly": "pnpm build"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/MailpulseApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/EmailTracker/EmailTracker.node.js"
+    ]
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.12.0",
+    "n8n-workflow": "^1.72.0",
+    "typescript": "^5.7.3"
+  },
+  "peerDependencies": {
+    "n8n-workflow": ">=1.0.0"
+  }
+}
