@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-mailpulse",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "n8n node to track email opens and clicks with Mailpulse",
   "keywords": [
     "n8n-community-node-package",
@@ -21,7 +21,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc && cp -r src/nodes/EmailTracker/*.svg dist/nodes/EmailTracker/ 2>/dev/null || true",
+    "build": "tsc && cp -r src/nodes/EmailTracker/*.svg dist/nodes/EmailTracker/ 2>/dev/null && cp -r src/nodes/MailpulseStats/*.svg dist/nodes/MailpulseStats/ 2>/dev/null || true",
     "dev": "tsc --watch",
     "lint": "eslint . --ext .ts",
     "prepublishOnly": "pnpm build"
@@ -35,7 +35,8 @@
       "dist/credentials/MailpulseApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/EmailTracker/EmailTracker.node.js"
+      "dist/nodes/EmailTracker/EmailTracker.node.js",
+      "dist/nodes/MailpulseStats/MailpulseStats.node.js"
     ]
   },
   "dependencies": {
