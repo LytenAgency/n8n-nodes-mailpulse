@@ -12,7 +12,7 @@ export class EmailTracker implements INodeType {
   description: INodeTypeDescription = {
     displayName: "Mailpulse Email Tracker",
     name: "emailTracker",
-    icon: "file:mailpulse.svg",
+    icon: "file:mailpulse-io.svg",
     group: ["transform"],
     version: 1,
     subtitle: "Track email opens and clicks",
