@@ -1,6 +1,8 @@
 import type {
   IExecuteFunctions,
+  ILoadOptionsFunctions,
   INodeExecutionData,
+  INodePropertyOptions,
   INodeType,
   INodeTypeDescription,
 } from "n8n-workflow";
@@ -56,11 +58,52 @@ export class EmailTracker implements INodeType {
         description: "The subject of the email",
       },
       {
-        displayName: "Campaign ID",
-        name: "campaignId",
+        displayName: "Campaign",
+        name: "campaignSource",
+        type: "options",
+        options: [
+          {
+            name: "None",
+            value: "none",
+          },
+          {
+            name: "Select Existing",
+            value: "existing",
+          },
+          {
+            name: "Create New",
+            value: "new",
+          },
+        ],
+        default: "none",
+        description: "Choose how to assign a campaign",
+      },
+      {
+        displayName: "Campaign Name",
+        name: "campaignName",
+        type: "options",
+        typeOptions: {
+          loadOptionsMethod: "getCampaigns",
+        },
+        default: "",
+        displayOptions: {
+          show: {
+            campaignSource: ["existing"],
+          },
+        },
+        description: "Select an existing campaign",
+      },
+      {
+        displayName: "New Campaign Name",
+        name: "newCampaignName",
         type: "string",
         default: "",
-        description: "Optional campaign ID to group emails",
+        displayOptions: {
+          show: {
+            campaignSource: ["new"],
+          },
+        },
+        description: "Name for the new campaign (will be created if it doesn't exist)",
       },
       {
         displayName: "Metadata",
@@ -70,6 +113,40 @@ export class EmailTracker implements INodeType {
         description: "Optional JSON metadata to store with the email",
       },
     ],
+  };
+
+  methods = {
+    loadOptions: {
+      async getCampaigns(
+        this: ILoadOptionsFunctions
+      ): Promise<INodePropertyOptions[]> {
+        const credentials = await this.getCredentials("mailpulseApi");
+        const apiUrl = credentials.apiUrl as string;
+        const apiKey = credentials.apiKey as string;
+
+        try {
+          const response = await this.helpers.httpRequest({
+            method: "GET",
+            url: `${apiUrl}/api/campaigns`,
+            headers: {
+              "x-api-key": apiKey,
+            },
+          });
+
+          const campaigns = response.campaigns as Array<{
+            id: string;
+            name: string;
+          }>;
+
+          return campaigns.map((campaign) => ({
+            name: campaign.name,
+            value: campaign.name,
+          }));
+        } catch {
+          return [];
+        }
+      },
+    },
   };
 
   async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
@@ -83,8 +160,15 @@ export class EmailTracker implements INodeType {
       const htmlContent = this.getNodeParameter("htmlContent", i) as string;
       const recipient = this.getNodeParameter("recipient", i) as string;
       const subject = this.getNodeParameter("subject", i) as string;
-      const campaignId = this.getNodeParameter("campaignId", i) as string;
+      const campaignSource = this.getNodeParameter("campaignSource", i) as string;
       const metadataStr = this.getNodeParameter("metadata", i) as string;
+
+      let campaignId: string | undefined;
+      if (campaignSource === "existing") {
+        campaignId = this.getNodeParameter("campaignName", i) as string;
+      } else if (campaignSource === "new") {
+        campaignId = this.getNodeParameter("newCampaignName", i) as string;
+      }
 
       let metadata: Record<string, unknown> = {};
       try {
