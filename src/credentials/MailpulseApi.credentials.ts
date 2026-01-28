@@ -7,15 +7,15 @@ import type {
 export class MailpulseApi implements ICredentialType {
   name = "mailpulseApi";
   displayName = "Mailpulse API";
-  documentationUrl = "https://mailpulse.io/docs";
+  documentationUrl = "https://mailpulse-io.lyten.agency/docs";
 
   properties: INodeProperties[] = [
     {
       displayName: "API URL",
       name: "apiUrl",
       type: "string",
-      default: "https://mailpulse.io",
-      placeholder: "https://mailpulse.io",
+      default: "https://mailpulse-io.lyten.agency",
+      placeholder: "https://mailpulse-io.lyten.agency",
       description: "The base URL of your Mailpulse instance",
     },
     {

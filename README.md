@@ -1,6 +1,6 @@
 # n8n-nodes-mailpulse
 
-This is an n8n community node that lets you track email opens and clicks with [Mailpulse](https://mailpulse.io).
+This is an n8n community node that lets you track email opens and clicks with [Mailpulse](https://mailpulse-io.lyten.agency).
 
 ## Installation
 
@@ -24,7 +24,7 @@ You need to configure the Mailpulse API credentials:
 
 | Field | Description |
 |-------|-------------|
-| **API URL** | Your Mailpulse instance URL (e.g., `https://mailpulse.io`) |
+| **API URL** | Your Mailpulse instance URL (e.g., `https://mailpulse-io.lyten.agency`) |
 | **API Key** | Your API key from Mailpulse Settings |
 
 ## Node: Email Tracker
