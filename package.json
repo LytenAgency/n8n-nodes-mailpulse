@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-mailpulse",
-  "version": "1.16.0",
+  "version": "1.17.0",
   "description": "n8n node to track email opens and clicks with Mailpulse",
   "keywords": [
     "n8n-community-node-package",
@@ -16,11 +16,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lytenagency/n8n-nodes-mailpulse"
+    "url": "https://github.com/LytenAgency/n8n-nodes-mailpulse"
   },
   "homepage": "https://mailpulse-io.lyten.agency/docs/n8n",
   "bugs": {
-    "url": "https://github.com/lytenagency/n8n-nodes-mailpulse/issues"
+    "url": "https://github.com/LytenAgency/n8n-nodes-mailpulse/issues"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
