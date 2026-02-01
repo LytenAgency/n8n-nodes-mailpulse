@@ -16,7 +16,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/LytenAgency/mailpulse-io"
+    "url": "https://github.com/lytenagency/n8n-nodes-mailpulse"
+  },
+  "homepage": "https://mailpulse-io.lyten.agency/docs/n8n",
+  "bugs": {
+    "url": "https://github.com/lytenagency/n8n-nodes-mailpulse/issues"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
