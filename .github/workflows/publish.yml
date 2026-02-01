@@ -21,11 +21,13 @@ jobs:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Install npm latest
-        run: npm install -g npm@latest
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Check if version changed
         id: version-check
@@ -47,7 +49,7 @@ jobs:
 
       - name: Build
         if: steps.version-check.outputs.publish == 'true'
-        run: npm run build
+        run: pnpm build
 
       - name: Publish to npm with provenance
         if: steps.version-check.outputs.publish == 'true'
