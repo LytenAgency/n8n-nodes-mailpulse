@@ -25,7 +25,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc && cp -r src/nodes/EmailTracker/*.svg dist/nodes/EmailTracker/ 2>/dev/null && cp -r src/nodes/MailpulseStats/*.svg dist/nodes/MailpulseStats/ 2>/dev/null || true",
+    "build": "tsc && cp -r src/nodes/EmailTracker/*.svg dist/nodes/EmailTracker/ 2>/dev/null && cp -r src/nodes/EmailSender/*.svg dist/nodes/EmailSender/ 2>/dev/null && cp -r src/nodes/MailpulseStats/*.svg dist/nodes/MailpulseStats/ 2>/dev/null || true",
     "dev": "tsc --watch",
     "lint": "eslint . --ext .ts",
     "prepublishOnly": "pnpm build"
@@ -40,6 +40,7 @@
     ],
     "nodes": [
       "dist/nodes/EmailTracker/EmailTracker.node.js",
+      "dist/nodes/EmailSender/EmailSender.node.js",
       "dist/nodes/MailpulseStats/MailpulseStats.node.js"
     ]
   },
