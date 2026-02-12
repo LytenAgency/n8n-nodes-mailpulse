@@ -193,7 +193,7 @@ export class EmailTracker implements INodeType {
         },
       });
 
-      const { emailTrackingId, links, pixelUrl } = response as {
+      const { emailTrackingId, links, pixelUrl, badgeHtml } = response as {
         emailTrackingId: string;
         links: Array<{
           originalUrl: string;
@@ -201,6 +201,7 @@ export class EmailTracker implements INodeType {
           trackingUrl: string;
         }>;
         pixelUrl: string;
+        badgeHtml?: string;
       };
 
       const $ = cheerio.load(htmlContent);
@@ -212,10 +213,11 @@ export class EmailTracker implements INodeType {
       }
 
       const pixelHtml = `<img src="${pixelUrl}" width="1" height="1" style="display:none;" alt="" />`;
+      const appendHtml = pixelHtml + (badgeHtml || "");
       if ($("body").length > 0) {
-        $("body").append(pixelHtml);
+        $("body").append(appendHtml);
       } else {
-        $.root().append(pixelHtml);
+        $.root().append(appendHtml);
       }
 
       const modifiedHtml = $.html();
